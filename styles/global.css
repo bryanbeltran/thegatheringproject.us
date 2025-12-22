@@ -1,20 +1,21 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', Arial, sans-serif;
-  background: #f8fafc;
-  color: #181b1f;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  background: #0a0a0a;
+  color: #e5e5e5;
+  line-height: 1.6;
 }
 
 :root {
-  --accent: #1a4add;
-  --section-bg: #f6f7f8;
-  --navbar-bg: #fff;
-  --navbar-link: #181b1f;
-  --navbar-link-active: #1a4add;
-  --border: #e2e5eb;
-  --footer-bg: #fff;
-  --footer-color: #838b97;
+  --accent: #64ffda;
+  --section-bg: transparent;
+  --navbar-bg: rgba(10, 10, 10, 0.8);
+  --navbar-link: #a0a0a0;
+  --navbar-link-active: #64ffda;
+  --border: #1a1a1a;
+  --footer-bg: #0a0a0a;
+  --footer-color: #888;
 }
 
 .site-container {
@@ -26,6 +27,7 @@ body {
 
 nav {
   background: var(--navbar-bg);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -46,10 +48,10 @@ nav {
   height: 64px;
 }
 nav .nav-title {
-  font-size: 1.13rem;
-  font-weight: 800;
-  color: var(--navbar-link);
-  letter-spacing: 0.05em;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.02em;
   margin-right: 3rem;
 }
 nav .nav-links {
@@ -60,31 +62,31 @@ nav .nav-links {
 nav a {
   color: var(--navbar-link);
   padding: 7px 17px;
-  font-weight: 600;
+  font-weight: 500;
   font-family: inherit;
-  font-size: 1.07rem;
+  font-size: 0.95rem;
   background: none;
   text-decoration: none;
   border: 0;
   display: inline-block;
   border-radius: 0;
   position: relative;
-  transition: color 0.13s;
+  transition: color 0.2s ease;
   white-space: nowrap;
 }
 nav a.active, nav a[aria-current="page"] {
   color: var(--navbar-link-active);
-  font-weight: 700;
+  font-weight: 600;
 }
 nav a.active::after, nav a[aria-current="page"]::after {
   content: "";
   display: block;
-  height: 2px;
+  height: 1px;
   margin-top: 6px;
-  width: 70%;
+  width: 60%;
   background: var(--accent);
-  border-radius: 1.5px;
-  margin-left: 15%;
+  border-radius: 0;
+  margin-left: 20%;
 }
 nav a:hover, nav a:focus {
   color: var(--navbar-link-active);
@@ -93,63 +95,135 @@ nav a:hover, nav a:focus {
 .hero {
   text-align: center;
   background: var(--section-bg);
-  padding: 48px 9px 32px 9px;
-  margin-bottom: 30px;
+  padding: 80px 9px 64px 9px;
+  margin-bottom: 64px;
 }
 .hero h1 {
-  color: #20345d;
-  font-size: 2.7rem;
-  margin: 0 0 15px 0;
-  font-weight: 900;
-  letter-spacing: .003em;
+  color: #ffffff;
+  font-size: 2.75rem;
+  margin: 0 0 24px 0;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-transform: none;
 }
 .hero .tagline {
   color: var(--accent);
-  font-size: 1.18rem;
-  margin-bottom: 18px;
+  font-size: 1.15rem;
+  margin: 0 0 32px 0;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 .hero .mission {
-  margin: 1.1rem 0 0.3rem 0;
-  color: #2358b9;
-  font-size: 1.13rem;
-  font-style: italic;
+  margin: 0 0 12px 0;
+  color: #c0c0c0;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+.hero .mission:last-of-type {
+  margin-bottom: 0;
+  color: #a0a0a0;
+  font-size: 0.95rem;
 }
 main {
   min-height: 60vh;
-  background: #fff;
+  background: transparent;
 }
 .section {
-  margin-bottom: 2.1rem;
+  margin-bottom: 3rem;
 }
 .card {
-  background: #fff;
+  background: transparent;
   border: none;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   box-shadow: none;
-  padding: 2rem 0 1.2rem 0;
+  padding: 0;
 }
 .card h2 {
   color: var(--accent);
-  font-size: 1.19rem;
-  margin: 0 0 12px 0;
-  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0 0 16px 0;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 ul {
-  padding-left: 1.22rem;
-  color: #1c2430;
+  padding-left: 1.5rem;
+  color: #c0c0c0;
+  line-height: 1.8;
 }
 footer {
   background: var(--footer-bg);
   color: var(--footer-color);
   border-top: 1px solid var(--border);
-  padding: 2rem 0 1.1rem 0;
-  margin-top: 3rem;
-  font-size: 1.02rem;
+  padding: 3rem 0 2rem 0;
+  margin-top: 5rem;
+  font-size: 0.9rem;
   text-align: center;
 }
 footer a {
   color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+footer a:hover {
+  opacity: 0.8;
   text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+p {
+  color: #c0c0c0;
+  line-height: 1.7;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+a:hover {
+  opacity: 0.8;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.gallery-item {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s ease;
+}
+
+.gallery-item:hover .gallery-image {
+  opacity: 0.9;
 }
 
 @media (max-width: 700px) {
@@ -158,10 +232,30 @@ footer a {
     padding-right: 4px;
   }
   .hero {
-    padding: 2rem 0.2rem 1.1rem 0.2rem;
+    padding: 48px 9px 40px 9px;
+    margin-bottom: 48px;
+  }
+  .hero h1 {
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+  }
+  .hero .tagline {
+    font-size: 1rem;
+    margin-bottom: 24px;
+  }
+  .hero .mission {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+  .hero .mission:last-of-type {
+    font-size: 0.85rem;
   }
   nav .nav-title {
     font-size: 0.97rem;
     margin-right: 0.7rem;
+  }
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
   }
 }

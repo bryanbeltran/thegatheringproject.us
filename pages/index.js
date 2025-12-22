@@ -5,7 +5,7 @@ export default function Home() {
         <h1>WELCOME TO THE GATHERING PROJECT</h1>
         <div className="tagline">Feeling Joy and Creativity</div>
         <div className="mission">Mission & Purpose: Gathering Community</div>
-        <div className="mission">“Because everyone deserves to feel they belong”<br/>Inviting You to Belong</div>
+        <div className="mission">"Because everyone deserves to feel they belong"<br/>Inviting You to Belong</div>
       </div>
       <main>
         <div className="section card">
