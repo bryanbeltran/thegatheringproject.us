@@ -1,0 +1,13 @@
+# Node
+node_modules/
+.next/
+.env
+.DS_Store
+out/
+
+# Logs
+*.log
+
+# Vercel
+.vercel/
+
