@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About Us' },
+  { href: '/about', label: 'Our Gatherings' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/contact', label: 'Contact Us' },
 ];
@@ -44,8 +44,9 @@ function Footer() {
 export default function Layout({ children }) {
   return (
     <>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Navbar />
-      <div className="site-container">
+      <div className="site-container" id="main-content">
         {children}
       </div>
       <Footer />
