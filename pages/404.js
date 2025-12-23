@@ -14,9 +14,7 @@ export default function Custom404() {
         <h2>Page Not Found</h2>
         <p>The page you're looking for doesn't exist.</p>
         <p>
-          <Link href="/">
-            <a>Return to Home</a>
-          </Link>
+          <Link href="/">Return to Home</Link>
         </p>
       </div>
     </>

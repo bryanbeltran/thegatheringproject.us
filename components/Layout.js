@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'Our Gatherings' },
-  { href: '/gallery', label: 'Gallery' },
   { href: '/contact', label: 'Contact Us' },
 ];
 
@@ -21,9 +20,8 @@ function Navbar() {
               href={link.href}
               className={router.pathname === link.href ? 'active' : ''}
               aria-current={router.pathname === link.href ? 'page' : undefined}
-              legacyBehavior
             >
-              <a>{link.label}</a>
+              {link.label}
             </Link>
           ))}
         </div>

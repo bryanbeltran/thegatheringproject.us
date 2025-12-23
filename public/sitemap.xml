@@ -13,12 +13,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://thegatheringproject.us/gallery</loc>
-    <lastmod>2024-12-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://thegatheringproject.us/contact</loc>
     <lastmod>2024-12-23</lastmod>
     <changefreq>monthly</changefreq>
