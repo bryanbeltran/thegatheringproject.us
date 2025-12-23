@@ -10,9 +10,11 @@ const navLinks = [
 function Navbar() {
   const router = useRouter();
   return (
-    <nav>
+    <nav aria-label="Main navigation">
       <div className="navbar-inner">
-        <span className="nav-title">The Gathering Project</span>
+        <Link href="/" className="nav-title" aria-label="The Gathering Project - Home">
+          The Gathering Project
+        </Link>
         <div className="nav-links">
           {navLinks.map(link => (
             <Link
@@ -32,9 +34,11 @@ function Navbar() {
 
 function Footer() {
   return (
-    <footer>
+    <footer role="contentinfo">
       <div>© {new Date().getFullYear()} The Gathering Project. All rights reserved.</div>
-      <div>Contact: <a href="mailto:aziz.abdulrahmane@gmail.com">aziz.abdulrahmane@gmail.com</a></div>
+      <div>
+        Contact: <a href="mailto:aziz.abdulrahmane@gmail.com">aziz.abdulrahmane@gmail.com</a>
+      </div>
     </footer>
   );
 }

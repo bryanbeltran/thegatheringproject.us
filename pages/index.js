@@ -24,11 +24,11 @@ export default function Home() {
       </Head>
       <div className="hero">
         <h1>WELCOME TO THE GATHERING PROJECT</h1>
-        <div className="tagline">We are gathering community and inviting you to Belong!</div>
+        <p className="tagline">We are gathering community and inviting you to Belong!</p>
         <div className="hero-image-container">
           <Image 
             src="/gallery/image (3).png" 
-            alt="The Gathering Project" 
+            alt="Community members gathered together at a Friends of Friends event, representing connection and belonging" 
             className="hero-image"
             width={1800}
             height={1200}

@@ -17,7 +17,7 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{ textAlign: 'center', padding: '4rem 0' }}>
+        <div style={{ textAlign: 'center', padding: '4rem 0' }} role="alert">
           <h1>Something went wrong</h1>
           <p>We're sorry, but something unexpected happened.</p>
           <button
@@ -26,6 +26,7 @@ class ErrorBoundary extends React.Component {
               window.location.href = '/';
             }}
             className="retry-button"
+            aria-label="Return to home page"
           >
             Return to Home
           </button>

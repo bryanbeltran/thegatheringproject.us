@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 
@@ -8,6 +8,10 @@ export default function About() {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const lastFocusedElementRef = useRef(null);
+  const lightboxCloseRef = useRef(null);
+  const lightboxPrevRef = useRef(null);
+  const lightboxNextRef = useRef(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -48,7 +52,8 @@ export default function About() {
       if (selectedImage === null) return;
       
       if (e.key === 'Escape') {
-        setSelectedImage(null);
+        e.preventDefault();
+        closeLightbox();
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
         const prevIndex = selectedIndex > 0 ? selectedIndex - 1 : images.length - 1;
@@ -59,6 +64,32 @@ export default function About() {
         const nextIndex = selectedIndex < images.length - 1 ? selectedIndex + 1 : 0;
         setSelectedIndex(nextIndex);
         setSelectedImage(images[nextIndex]);
+      } else if (e.key === 'Tab') {
+        // Focus trap: keep focus within lightbox
+        const focusableElements = [
+          lightboxCloseRef.current,
+          lightboxPrevRef.current,
+          lightboxNextRef.current
+        ].filter(el => el !== null);
+        
+        if (focusableElements.length === 0) return;
+        
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        
+        if (e.shiftKey) {
+          // Shift + Tab
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          // Tab
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
       }
     };
 
@@ -66,7 +97,23 @@ export default function About() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedImage, selectedIndex, images]);
 
-  const openLightbox = (imagePath, index) => {
+  // Focus management when lightbox opens
+  useEffect(() => {
+    if (selectedImage && lightboxCloseRef.current) {
+      // Focus the close button when lightbox opens
+      setTimeout(() => {
+        lightboxCloseRef.current?.focus();
+      }, 100);
+    }
+  }, [selectedImage]);
+
+  const openLightbox = (imagePath, index, event) => {
+    // Store the element that triggered the lightbox
+    if (event && event.currentTarget) {
+      lastFocusedElementRef.current = event.currentTarget;
+    } else {
+      lastFocusedElementRef.current = document.activeElement;
+    }
     setSelectedImage(imagePath);
     setSelectedIndex(index);
     document.body.style.overflow = 'hidden';
@@ -75,6 +122,13 @@ export default function About() {
   const closeLightbox = () => {
     setSelectedImage(null);
     document.body.style.overflow = 'unset';
+    // Restore focus to the element that opened the lightbox
+    setTimeout(() => {
+      if (lastFocusedElementRef.current && typeof lastFocusedElementRef.current.focus === 'function') {
+        lastFocusedElementRef.current.focus();
+        lastFocusedElementRef.current = null;
+      }
+    }, 100);
   };
 
   const goToPrevious = (e) => {
@@ -193,11 +247,11 @@ export default function About() {
                   role="listitem"
                   tabIndex={0}
                   aria-label={`${altText} ${index + 1} of ${images.length}`}
-                  onClick={() => openLightbox(imagePath, index)}
+                  onClick={(e) => openLightbox(imagePath, index, e)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
-                      openLightbox(imagePath, index);
+                      openLightbox(imagePath, index, e);
                     }
                   }}
                 >
@@ -226,9 +280,10 @@ export default function About() {
           onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
-          aria-label="Image lightbox"
+          aria-label={`Image lightbox: Viewing image ${selectedIndex + 1} of ${images.length}`}
         >
           <button 
+            ref={lightboxCloseRef}
             className="lightbox-close"
             onClick={closeLightbox}
             aria-label="Close lightbox"
@@ -236,6 +291,7 @@ export default function About() {
             ×
           </button>
           <button 
+            ref={lightboxPrevRef}
             className="lightbox-nav lightbox-prev"
             onClick={goToPrevious}
             aria-label="Previous image"
@@ -243,6 +299,7 @@ export default function About() {
             ‹
           </button>
           <button 
+            ref={lightboxNextRef}
             className="lightbox-nav lightbox-next"
             onClick={goToNext}
             aria-label="Next image"
@@ -255,7 +312,7 @@ export default function About() {
               alt={`Gallery image ${selectedIndex + 1} of ${images.length}`}
               className="lightbox-image"
             />
-            <div className="lightbox-counter">
+            <div className="lightbox-counter" aria-hidden="true">
               {selectedIndex + 1} / {images.length}
             </div>
           </div>
