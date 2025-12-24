@@ -175,15 +175,39 @@ export default function About() {
         <h2>Host-Partners</h2>
         <div className="host-partners">
           <div className="host-partner">
-            <div className="host-partner-logo">Bichota Coffee</div>
+            <div className="host-partner-logo">
+              <Image 
+                src="/logos/bichota-logo.png" 
+                alt="Bichota Coffee logo" 
+                width={120}
+                height={120}
+                className="host-partner-logo-image"
+              />
+            </div>
             <div className="host-partner-name">Bichota Coffee</div>
           </div>
           <div className="host-partner">
-            <div className="host-partner-logo">Amore Coffee</div>
+            <div className="host-partner-logo">
+              <Image 
+                src="/logos/amore-logo.jpg" 
+                alt="Amore Coffee logo" 
+                width={120}
+                height={120}
+                className="host-partner-logo-image"
+              />
+            </div>
             <div className="host-partner-name">Amore Coffee</div>
           </div>
           <div className="host-partner">
-            <div className="host-partner-logo">BackStory Coffee</div>
+            <div className="host-partner-logo">
+              <Image 
+                src="/logos/backstory-logo.png" 
+                alt="BackStory Coffee logo" 
+                width={120}
+                height={120}
+                className="host-partner-logo-image"
+              />
+            </div>
             <div className="host-partner-name">BackStory Coffee</div>
           </div>
         </div>

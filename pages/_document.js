@@ -5,6 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta name="theme-color" content="#0a0a0a" />
+        <link rel="icon" href="/logos/fof-logo.png" type="image/png" />
       </Head>
       <body>
         <Main />

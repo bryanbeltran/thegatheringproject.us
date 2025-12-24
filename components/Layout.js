@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -13,7 +14,15 @@ function Navbar() {
     <nav aria-label="Main navigation">
       <div className="navbar-inner">
         <Link href="/" className="nav-title" aria-label="The Gathering Project - Home">
-          The Gathering Project
+          <Image 
+            src="/logos/fof-logo.png" 
+            alt="Friends of Friends logo" 
+            width={32}
+            height={32}
+            className="nav-logo"
+            priority
+          />
+          <span className="nav-title-text">The Gathering Project</span>
         </Link>
         <div className="nav-links">
           {navLinks.map(link => (
