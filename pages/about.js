@@ -168,7 +168,7 @@ export default function About() {
       <h1>Our Gatherings</h1>
 
       <section className="section card">
-        <p>Friends of Friends (FoF) is our curated monthly gatherings intentionally designed to cultivate authentic connection and belonging. We invite friends and friends-of-friends to gather, play, and deepen trust in our community. Our Host-Partners are local venues, brands, and mission-aligned organizations that co-design our gathering experiences to amplify and foster lasting relationships.</p>
+        <p>Friends of Friends (FoF) is our curated monthly gathering intentionally designed to cultivate authentic connection and belonging. We invite friends and friends-of-friends to gather, play, and deepen trust in our community. Our Host-Partners are local venues, brands, and mission-aligned organizations that co-design our gathering experiences to amplify and foster lasting relationships.</p>
       </section>
 
       <section className="section card">

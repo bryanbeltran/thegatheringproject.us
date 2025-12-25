@@ -23,7 +23,7 @@ export default function Home() {
         <meta name="twitter:image" content="https://thegatheringproject.us/gallery/image (3).png" />
       </Head>
       <div className="hero">
-        <h1>WELCOME TO THE GATHERING PROJECT</h1>
+        <h1>Friends of Friends</h1>
         <p className="tagline">We are gathering community and inviting you to Belong!</p>
         <div className="hero-image-container">
           <Image 
