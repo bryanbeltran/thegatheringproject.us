@@ -48,6 +48,9 @@ function Footer() {
       <div>
         Contact: <a href="mailto:aziz.abdulrahmane@gmail.com">aziz.abdulrahmane@gmail.com</a>
       </div>
+      <div>
+        <Link href="/privacy">Privacy Policy</Link>
+      </div>
     </footer>
   );
 }

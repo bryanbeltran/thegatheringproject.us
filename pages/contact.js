@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -178,6 +179,9 @@ export default function Contact() {
             >
               {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
+            <p style={{ fontSize: '0.875rem', color: '#666', marginTop: '1rem' }}>
+              By submitting this form, you agree to our <a href="/privacy">Privacy Policy</a>.
+            </p>
           </form>
         )}
       </section>
