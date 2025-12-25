@@ -519,10 +519,93 @@ a:focus-visible {
   margin-top: 2rem;
 }
 
+.gallery-swiper-container {
+  margin-top: 2rem;
+  position: relative;
+}
+
+.gallery-swiper {
+  padding-bottom: 3rem;
+}
+
+.gallery-swiper :global(.swiper-slide) {
+  height: auto;
+  display: flex;
+}
+
+.gallery-swiper :global(.swiper-pagination) {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #ffffff !important;
+}
+
+.gallery-swiper :global(.swiper-pagination) * {
+  color: #ffffff !important;
+}
+
+.gallery-swiper :global(.swiper-pagination-fraction) {
+  font-size: 0.95rem;
+  font-weight: 500;
+  bottom: 0.5rem;
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.gallery-swiper :global(.swiper-pagination-fraction *),
+.gallery-swiper :global(.swiper-pagination-fraction span),
+.gallery-swiper :global(.swiper-pagination-fraction .swiper-pagination-current),
+.gallery-swiper :global(.swiper-pagination-fraction .swiper-pagination-total) {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}
+
+.gallery-swiper :global(.swiper-pagination-fraction .swiper-pagination-current),
+.gallery-swiper :global(.swiper-pagination-fraction .swiper-pagination-total) {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.gallery-swiper :global(.swiper-button-next),
+.gallery-swiper :global(.swiper-button-prev) {
+  color: var(--accent);
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+}
+
+.gallery-swiper :global(.swiper-button-next:after),
+.gallery-swiper :global(.swiper-button-prev:after) {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.gallery-swiper :global(.swiper-button-next:hover),
+.gallery-swiper :global(.swiper-button-prev:hover) {
+  opacity: 0.8;
+}
+
+.gallery-swiper :global(.swiper-button-disabled) {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
 .gallery-item {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   overflow: hidden;
   border: 1px solid var(--border);
   transition: transform 0.2s ease, border-color 0.2s ease, outline 0.2s ease;

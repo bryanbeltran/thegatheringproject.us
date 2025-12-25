@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 export default function About() {
   const [images, setImages] = useState([]);
@@ -12,6 +17,7 @@ export default function About() {
   const lightboxCloseRef = useRef(null);
   const lightboxPrevRef = useRef(null);
   const lightboxNextRef = useRef(null);
+  const swiperRef = useRef(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -107,6 +113,85 @@ export default function About() {
     }
   }, [selectedImage]);
 
+  // Style pagination to be white and prevent text selection
+  useEffect(() => {
+    if (loading || images.length === 0) return;
+
+    const preventSelection = (e) => {
+      e.preventDefault();
+      return false;
+    };
+
+    const stylePagination = () => {
+      const pagination = document.querySelector('.gallery-swiper .swiper-pagination-fraction');
+      if (pagination) {
+        pagination.style.color = '#ffffff';
+        pagination.style.textShadow = '0 1px 3px rgba(0, 0, 0, 0.5)';
+        pagination.style.userSelect = 'none';
+        pagination.style.webkitUserSelect = 'none';
+        pagination.style.mozUserSelect = 'none';
+        pagination.style.msUserSelect = 'none';
+        pagination.setAttribute('unselectable', 'on');
+        pagination.setAttribute('onselectstart', 'return false;');
+        
+        // Prevent text selection via events (selectstart is the key one)
+        pagination.addEventListener('selectstart', preventSelection);
+        pagination.addEventListener('dragstart', preventSelection);
+        
+        // Also style all child elements
+        const children = pagination.querySelectorAll('*');
+        children.forEach(child => {
+          if (child instanceof HTMLElement) {
+            child.style.color = '#ffffff';
+            child.style.textShadow = '0 1px 3px rgba(0, 0, 0, 0.5)';
+            child.style.userSelect = 'none';
+            child.style.webkitUserSelect = 'none';
+            child.style.mozUserSelect = 'none';
+            child.style.msUserSelect = 'none';
+            child.setAttribute('unselectable', 'on');
+            child.setAttribute('onselectstart', 'return false;');
+            
+            // Prevent text selection via events on children too
+            child.addEventListener('selectstart', preventSelection);
+            child.addEventListener('dragstart', preventSelection);
+          }
+        });
+      }
+    };
+
+    // Style after Swiper has rendered
+    const timer1 = setTimeout(stylePagination, 100);
+    const timer2 = setTimeout(stylePagination, 300);
+
+    // Use MutationObserver to watch for pagination changes
+    const observer = new MutationObserver(stylePagination);
+    const container = document.querySelector('.gallery-swiper-container');
+    if (container) {
+      observer.observe(container, { childList: true, subtree: true });
+    }
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      observer.disconnect();
+      // Clean up event listeners
+      const pagination = document.querySelector('.gallery-swiper .swiper-pagination-fraction');
+      if (pagination) {
+        pagination.removeEventListener('selectstart', preventSelection);
+        pagination.removeEventListener('mousedown', preventSelection);
+        pagination.removeEventListener('dragstart', preventSelection);
+        const children = pagination.querySelectorAll('*');
+        children.forEach(child => {
+          if (child instanceof HTMLElement) {
+            child.removeEventListener('selectstart', preventSelection);
+            child.removeEventListener('mousedown', preventSelection);
+            child.removeEventListener('dragstart', preventSelection);
+          }
+        });
+      }
+    };
+  }, [images, loading]);
+
   const openLightbox = (imagePath, index, event) => {
     // Store the element that triggered the lightbox
     if (event && event.currentTarget) {
@@ -148,24 +233,24 @@ export default function About() {
   return (
     <div>
       <Head>
-        <title>Our Gatherings - The Gathering Project</title>
+        <title>Friends of Friends (FoF) — A Gathering Project! - The Gathering Project</title>
         <meta name="description" content="Learn about Friends of Friends (FoF) gatherings and our host partners" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://thegatheringproject.us/about" />
-        <meta property="og:title" content="Our Gatherings - The Gathering Project" />
+        <meta property="og:title" content="Friends of Friends (FoF) — A Gathering Project! - The Gathering Project" />
         <meta property="og:description" content="Learn about Friends of Friends (FoF) gatherings and our host partners" />
         <meta property="og:image" content="https://thegatheringproject.us/gallery/image (3).png" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://thegatheringproject.us/about" />
-        <meta name="twitter:title" content="Our Gatherings - The Gathering Project" />
+        <meta name="twitter:title" content="Friends of Friends (FoF) — A Gathering Project! - The Gathering Project" />
         <meta name="twitter:description" content="Learn about Friends of Friends (FoF) gatherings and our host partners" />
         <meta name="twitter:image" content="https://thegatheringproject.us/gallery/image (3).png" />
       </Head>
-      <h1>Our Gatherings</h1>
+      <h1>Friends of Friends (FoF) — A Gathering Project!</h1>
 
       <section className="section card">
         <p>Friends of Friends (FoF) is our curated monthly gathering intentionally designed to cultivate authentic connection and belonging. We invite friends and friends-of-friends to gather, play, and deepen trust in our community. Our Host-Partners are local venues, brands, and mission-aligned organizations that co-design our gathering experiences to amplify and foster lasting relationships.</p>
@@ -253,44 +338,72 @@ export default function About() {
             </button>
           </div>
         ) : images.length > 0 ? (
-          <div className="gallery-grid" role="list">
-            {images.map((imagePath, index) => {
-              const filename = imagePath.split('/').pop().replace(/\.(jpg|jpeg|png)$/i, '');
-              // Extract meaningful description from filename if possible
-              let altText = `Photo from Friends of Friends gathering`;
-              if (filename.includes('FoF')) {
-                altText = `Friends of Friends gathering event photo`;
-              } else if (filename.includes('IMG_') || filename.includes('DSC')) {
-                altText = `Event photo from gathering`;
+          <div 
+            className="gallery-swiper-container"
+            onMouseEnter={() => {
+              if (swiperRef.current?.swiper?.autoplay) {
+                swiperRef.current.swiper.autoplay.stop();
               }
-              
-              return (
-                <div 
-                  key={index} 
-                  className="gallery-item" 
-                  role="listitem"
-                  tabIndex={0}
-                  aria-label={`${altText} ${index + 1} of ${images.length}`}
-                  onClick={(e) => openLightbox(imagePath, index, e)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      openLightbox(imagePath, index, e);
-                    }
-                  }}
-                >
-                  <Image
-                    src={imagePath}
-                    alt={altText}
-                    className="gallery-image"
-                    width={400}
-                    height={300}
-                    loading="lazy"
-                    quality={85}
-                  />
-                </div>
-              );
-            })}
+            }}
+            onMouseLeave={() => {
+              if (swiperRef.current?.swiper?.autoplay) {
+                swiperRef.current.swiper.autoplay.start();
+              }
+            }}
+          >
+            <Swiper
+              ref={swiperRef}
+              modules={[Pagination, Navigation, Autoplay]}
+              spaceBetween={20}
+              slidesPerView={1}
+              pagination={{
+                type: 'fraction',
+                clickable: true,
+              }}
+              navigation={true}
+              autoplay={{
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              className="gallery-swiper"
+            >
+              {images.map((imagePath, index) => {
+                const filename = imagePath.split('/').pop().replace(/\.(jpg|jpeg|png)$/i, '');
+                // Extract meaningful description from filename if possible
+                let altText = `Photo from Friends of Friends gathering`;
+                if (filename.includes('FoF')) {
+                  altText = `Friends of Friends gathering event photo`;
+                } else if (filename.includes('IMG_') || filename.includes('DSC')) {
+                  altText = `Event photo from gathering`;
+                }
+                
+                return (
+                  <SwiperSlide key={index}>
+                    <div 
+                      className="gallery-item" 
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`${altText} ${index + 1} of ${images.length}`}
+                      onClick={(e) => openLightbox(imagePath, index, e)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          openLightbox(imagePath, index, e);
+                        }
+                      }}
+                    >
+                      <img
+                        src={imagePath}
+                        alt={altText}
+                        className="gallery-image"
+                        loading={index < 2 ? "eager" : "lazy"}
+                      />
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
           </div>
         ) : (
           <p>No images found.</p>
