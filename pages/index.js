@@ -5,25 +5,25 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>The Gathering Project - Home</title>
+        <title>Friends of Friends (FoF) — A Gathering Project - The Gathering Project</title>
         <meta name="description" content="The Gathering Project - Creating spaces where everyone belongs" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://thegatheringproject.us/" />
-        <meta property="og:title" content="The Gathering Project - Creating spaces where everyone belongs" />
+        <meta property="og:title" content="Friends of Friends (FoF) — A Gathering Project" />
         <meta property="og:description" content="The Gathering Project - Creating spaces where everyone belongs" />
         <meta property="og:image" content="https://thegatheringproject.us/gallery/image (3).png" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://thegatheringproject.us/" />
-        <meta name="twitter:title" content="The Gathering Project - Creating spaces where everyone belongs" />
+        <meta name="twitter:title" content="Friends of Friends (FoF) — A Gathering Project" />
         <meta name="twitter:description" content="The Gathering Project - Creating spaces where everyone belongs" />
         <meta name="twitter:image" content="https://thegatheringproject.us/gallery/image (3).png" />
       </Head>
       <div className="hero">
-        <h1>Friends of Friends</h1>
+        <h1>Friends of Friends (FoF) — A Gathering Project</h1>
         <p className="tagline">We are gathering community and inviting you to Belong!</p>
         <div className="hero-image-container">
           <Image 
