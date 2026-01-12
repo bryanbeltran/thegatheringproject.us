@@ -177,6 +177,16 @@ nav .nav-links a:focus {
   width: 130%;
   max-width: 1800px;
 }
+
+/* Hero image for about page - 20% bigger than previous size */
+.about-page .hero-image-container {
+  width: 94%;
+  max-width: 1296px;
+  margin-left: auto;
+  margin-right: auto;
+  left: auto;
+  transform: none;
+}
 .hero-image {
   width: 100%;
   height: auto;

@@ -32,7 +32,17 @@ export default function About() {
       .then(data => {
         if (isMounted) {
           if (data.images && Array.isArray(data.images)) {
-            setImages(data.images);
+            // Filter to only include specified gallery images
+            const allowedImages = [
+              '/gallery/DSC09251.jpg',
+              '/gallery/FoF-15(1).jpg',
+              '/gallery/FoF-18.jpg',
+              '/gallery/FoF-21.jpg',
+              '/gallery/FoF-25.jpg',
+              '/gallery/FoF-28(1).jpg'
+            ];
+            const filteredImages = data.images.filter(img => allowedImages.includes(img));
+            setImages(filteredImages);
             setError(null);
           } else {
             throw new Error('Invalid image data format');
@@ -231,7 +241,7 @@ export default function About() {
   };
 
   return (
-    <div>
+    <div className="about-page">
       <Head>
         <title>Friends of Friends (FoF) — A Gathering Project! - The Gathering Project</title>
         <meta name="description" content="Learn about Friends of Friends (FoF) gatherings and our host partners" />
@@ -250,53 +260,21 @@ export default function About() {
         <meta name="twitter:description" content="Learn about Friends of Friends (FoF) gatherings and our host partners" />
         <meta name="twitter:image" content="https://thegatheringproject.us/gallery/image (3).png" />
       </Head>
-      <h1>Friends of Friends (FoF) — A Gathering Project!</h1>
-
-      <section className="section card">
-        <p>Friends of Friends (FoF) is our curated monthly gathering intentionally designed to cultivate authentic connection and belonging. We invite friends and friends-of-friends to gather, play, and deepen trust in our community. Our Host-Partners are local venues, brands, and mission-aligned organizations that co-design our gathering experiences to amplify and foster lasting relationships.</p>
-      </section>
-
-      <section className="section card">
-        <h2>Host-Partners</h2>
-        <div className="host-partners">
-          <div className="host-partner">
-            <div className="host-partner-logo">
-              <Image 
-                src="/logos/bichota-logo.png" 
-                alt="Bichota Coffee logo" 
-                width={120}
-                height={120}
-                className="host-partner-logo-image"
-              />
-            </div>
-            <div className="host-partner-name">Bichota Coffee</div>
-          </div>
-          <div className="host-partner">
-            <div className="host-partner-logo">
-              <Image 
-                src="/logos/amore-logo.jpg" 
-                alt="Amore Coffee logo" 
-                width={120}
-                height={120}
-                className="host-partner-logo-image"
-              />
-            </div>
-            <div className="host-partner-name">Amore Coffee</div>
-          </div>
-          <div className="host-partner">
-            <div className="host-partner-logo">
-              <Image 
-                src="/logos/backstory-logo.png" 
-                alt="BackStory Coffee logo" 
-                width={120}
-                height={120}
-                className="host-partner-logo-image"
-              />
-            </div>
-            <div className="host-partner-name">BackStory Coffee</div>
-          </div>
+      <div className="hero">
+        <h1>Friends of Friends (FoF) — A Gathering Project!</h1>
+        <div className="hero-image-container">
+          <Image 
+            src="/gallery/DSC09238.jpg" 
+            alt="Friends of Friends gathering event" 
+            className="hero-image"
+            width={1800}
+            height={1200}
+            priority
+            quality={90}
+          />
         </div>
-      </section>
+        <p className="mission">Friends of Friends (FoF) is our curated monthly gatherings intentionally designed to cultivate authentic connection and belonging. We invite friends and friends-of-friends to gather, play, and deepen trust in our community. Our Host-Partners are local venues, brands, and mission-aligned organizations that co-design our gathering experiences to amplify and foster lasting relationships.</p>
+      </div>
 
       <section className="section card">
         <h2>What to Expect / How FoF Works</h2>
@@ -408,6 +386,48 @@ export default function About() {
         ) : (
           <p>No images found.</p>
         )}
+      </section>
+
+      <section className="section card">
+        <h2>Host-Partners</h2>
+        <div className="host-partners">
+          <div className="host-partner">
+            <div className="host-partner-logo">
+              <Image 
+                src="/logos/bichota-logo.png" 
+                alt="Bichota Coffee logo" 
+                width={120}
+                height={120}
+                className="host-partner-logo-image"
+              />
+            </div>
+            <div className="host-partner-name">Bichota Coffee</div>
+          </div>
+          <div className="host-partner">
+            <div className="host-partner-logo">
+              <Image 
+                src="/logos/amore-logo.jpg" 
+                alt="Amore Coffee logo" 
+                width={120}
+                height={120}
+                className="host-partner-logo-image"
+              />
+            </div>
+            <div className="host-partner-name">Amore Coffee</div>
+          </div>
+          <div className="host-partner">
+            <div className="host-partner-logo">
+              <Image 
+                src="/logos/backstory-logo.png" 
+                alt="BackStory Coffee logo" 
+                width={120}
+                height={120}
+                className="host-partner-logo-image"
+              />
+            </div>
+            <div className="host-partner-name">BackStory Coffee</div>
+          </div>
+        </div>
       </section>
 
       {/* Lightbox Modal */}
